@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'accounts',
 
+    'django_extensions',
     'rest_framework',
 ]
 
