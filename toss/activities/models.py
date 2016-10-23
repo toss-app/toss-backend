@@ -1,4 +1,5 @@
 from accounts.models import Account
+from conversations.models import Conversation
 
 from django.db import models
 from django.conf import settings

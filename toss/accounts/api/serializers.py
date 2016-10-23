@@ -3,7 +3,13 @@ from ..models import Account
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
-class AccountSerializer(serializers.ModelSerializer):
+class BasicAccountSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Account
+        fields = ('id', 'username', 'first_name', 'last_name')
+
+class AccountSerializer(BasicAccountSerializer):
 
     def create(self, validated_data):
         user = get_user_model().objects.create(
@@ -18,4 +24,6 @@ class AccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'password')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'password', 'conversations')
+
+

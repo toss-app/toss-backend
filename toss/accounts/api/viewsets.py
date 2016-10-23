@@ -1,6 +1,6 @@
 from ..models import Account
 
-from .serializers import AccountSerializer
+from .serializers import AccountSerializer, BasicAccountSerializer
 
 from django.contrib.auth import get_user_model, authenticate
 
@@ -21,10 +21,22 @@ class AccountViewSet(viewsets.ModelViewSet):
         if user is not None:
             user = user[0]
             if user.is_superuser:
-                return get_user_model().objects.all()
+                queryset = get_user_model().objects.all()
             else:
-                return get_user_model().objects.filter(id=user.id)
+                queryset = get_user_model().objects.filter(id=user.id)
         return get_user_model().objects.none() 
+
+    def get_filtered_queryset(self):
+        queryset = get_user_model().objects.all()
+        username_filter = self.request.query_params.get('username', None)
+        if username_filter is not None:
+            queryset = queryset.filter(username__icontains=username_filter)
+            return queryset
+
+
+    def list(self, request):
+        users = BasicAccountSerializer(self.get_filtered_queryset(), many=True)
+        return Response(users.data)
 
     @list_route(methods=["POST"], url_path="login")
     def login(self, request):

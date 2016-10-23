@@ -1,10 +1,10 @@
 from .serializers import ActivitySerializer
 from ..models import Activity
 
-from helpers.api.viewsets import AuthenticatedModelViewset
+from helpers.api.viewsets import AuthenticatedModelViewSet
 
 from rest_framework import viewsets
 
-class ActivityViewSet(AuthenticatedModelViewset):
+class ActivityViewSet(AuthenticatedModelViewSet):
     serializer_class = ActivitySerializer
     queryset = Activity.objects.all()

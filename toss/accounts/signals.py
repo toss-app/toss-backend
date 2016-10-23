@@ -7,7 +7,5 @@ from django.conf import settings
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
-    print("HEY SIGNAL")
     if created:
-        print("CREATED YO")
         Token.objects.create(user=instance)

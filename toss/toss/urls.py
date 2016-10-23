@@ -15,6 +15,8 @@ Including another URLconf
 """
 from accounts.api.viewsets import AccountViewSet
 from activities.api.viewsets import ActivityViewSet
+from responses.api.viewsets import ResponseViewSet
+from conversations.api.viewsets import ConversationViewSet
 
 from django.conf.urls import url, include
 from django.contrib import admin
@@ -24,6 +26,8 @@ from rest_framework import routers
 api_router = routers.DefaultRouter()
 api_router.register(r'accounts', AccountViewSet, base_name='accounts')
 api_router.register(r'activities', ActivityViewSet, base_name='activities')
+api_router.register(r'responses', ResponseViewSet, base_name='responses')
+api_router.register(r'conversations', ConversationViewSet, base_name='conversations')
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
