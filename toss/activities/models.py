@@ -10,3 +10,4 @@ class Activity(models.Model):
     title = models.CharField(max_length=16, blank=False)
     date = models.DateTimeField(null=False)
     location = models.CharField(max_length=30, blank=False)
+

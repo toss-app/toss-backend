@@ -5,5 +5,3 @@ from helpers.api.viewsets import AuthenticatedModelViewSet
 class ConversationViewSet(AuthenticatedModelViewSet):
     serializer_class = ConversationSerializer
     queryset = Conversation.objects.all()
-    
-

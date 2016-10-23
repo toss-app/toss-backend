@@ -21,10 +21,8 @@ class AccountViewSet(viewsets.ModelViewSet):
         user = TokenAuthentication().authenticate(self.request)
         if user is not None:
             user = user[0]
-            if user.is_superuser:
-                queryset = get_user_model().objects.all()
-            else:
-                queryset = get_user_model().objects.filter(id=user.id)
+            queryset = get_user_model().objects.filter(id=user.id)
+            return queryset
         return get_user_model().objects.none() 
 
     def get_filtered_queryset(self):
@@ -43,6 +41,10 @@ class AccountViewSet(viewsets.ModelViewSet):
     def list(self, request):
         users = BasicAccountSerializer(self.get_filtered_queryset(), many=True)
         return Response(users.data)
+
+    def retrieve(self, request, pk):
+        user = BasicAccountSerializer(self.get_filtered_queryset().get(pk=pk))
+        return Response(user.data)
 
     @list_route(methods=["POST"], url_path="login")
     def login(self, request):
