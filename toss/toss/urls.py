@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from accounts.api.viewsets import AccountViewSet
+from activities.api.viewsets import ActivityViewSet
 
 from django.conf.urls import url, include
 from django.contrib import admin
@@ -22,6 +23,7 @@ from rest_framework import routers
 
 api_router = routers.DefaultRouter()
 api_router.register(r'accounts', AccountViewSet, base_name='accounts')
+api_router.register(r'activities', ActivityViewSet, base_name='activities')
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
