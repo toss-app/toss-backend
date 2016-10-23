@@ -24,6 +24,6 @@ class AccountSerializer(BasicAccountSerializer):
 
     class Meta:
         model = Account
-        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'password', 'conversations')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'password')
 
 

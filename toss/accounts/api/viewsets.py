@@ -3,6 +3,7 @@ from ..models import Account
 from .serializers import AccountSerializer, BasicAccountSerializer
 
 from django.contrib.auth import get_user_model, authenticate
+from django.db.models import Q
 
 from rest_framework import viewsets, status
 from rest_framework.authentication import TokenAuthentication
@@ -28,10 +29,15 @@ class AccountViewSet(viewsets.ModelViewSet):
 
     def get_filtered_queryset(self):
         queryset = get_user_model().objects.all()
-        username_filter = self.request.query_params.get('username', None)
-        if username_filter is not None:
-            queryset = queryset.filter(username__icontains=username_filter)
-            return queryset
+        name_filter = self.request.query_params.get('name', None)
+        if name_filter is not None:
+            queryset = queryset.filter(Q(username__icontains=name_filter) 
+                                       | Q(first_name__icontains=name_filter)
+                                       | Q(last_name__icontains=name_filter))
+        limit_filter = self.request.query_params.get('limit', None)
+        if limit_filter is not None and self.represents_int(limit_filter):
+            queryset = queryset[0:int(limit_filter)]
+        return queryset
 
 
     def list(self, request):
@@ -51,3 +57,9 @@ class AccountViewSet(viewsets.ModelViewSet):
             else:
                 return Response(data={"Invalid username or password."}, status=status.HTTP_401_UNAUTHORIZED)
 
+    def represents_int(self, str):
+        try: 
+            int(str)
+            return True
+        except ValueError:
+            return False
