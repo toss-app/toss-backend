@@ -21,7 +21,7 @@ from django.contrib import admin
 from rest_framework import routers
 
 api_router = routers.DefaultRouter()
-api_router.register(r'accounts', AccountViewSet)
+api_router.register(r'accounts', AccountViewSet, base_name='accounts')
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
