@@ -4,27 +4,38 @@ FORMAT: 1A
 
 Toss is an application that enables people to connect for quick events.
 
+## Data Structures
+
+### User
++ first_name: Camden (required)
++ last_name: Bickel (required)
++ username: cam (required)
+
 ## Group Users
 
 ## Users Collection [/users]
 
 ### Create a user [POST]
 
++ Request (application/json)
+    + Attributes (User)
+    
++ Response 200 (application/json)
+    + Attributes (User)
+
 ## Authenticated User [/users/me]
 
 ### Get the authenticated user [GET]
 
 + Response 200 (application/json)
-    
-        {   
-        "first_name": "Camden",
-        "last_name": "Bickel",
-        "username": "cam"
-        }
+    + Attributes (User)
 
 ## User Friends [/users/{user_id}/friends]
 
 + Parameters
     + user_id (number) - ID of the user
-    
+
 ### Get all friends [GET]
+
++ Response 200 (application/json)
+    + Attributes (array[User])
