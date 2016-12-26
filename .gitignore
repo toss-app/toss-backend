@@ -4,7 +4,7 @@
 
 *.egg-info
 *.pot
-# *.py[co]
+*.py[co]
 .tox/
 __pycache__
 MANIFEST
@@ -18,4 +18,4 @@ build/
 tests/report/
 
 # macOS stuff
-# .DS_Store
+.DS_Store
